@@ -1,10 +1,15 @@
 import { collections, works } from '../data';
+import Underwater from './Underwater';
 
 function IndexCard({ work, index, onSelect }) {
     return (
         <button type="button" className="project-index-card" onClick={() => onSelect(work, 'work')}>
             <div className="project-index-image">
-                <img src={work.image} alt={work.title} loading={index < 4 ? 'eager' : 'lazy'} />
+                {work.image ? (
+                    <img src={work.image} alt={work.title} loading={index < 4 ? 'eager' : 'lazy'} />
+                ) : (
+                    <span className="project-index-text-tile">{work.title}</span>
+                )}
                 <span className="project-index-number">{String(index + 1).padStart(2, '0')}</span>
             </div>
             <div className="project-index-caption">
@@ -15,6 +20,31 @@ function IndexCard({ work, index, onSelect }) {
     );
 }
 
+function UnderwaterWork({ work, onBack }) {
+    const position = works.findIndex((w) => w.id === work.id) + 1;
+    return (
+        <Underwater>
+            <div className="underwater-header">
+                <div className="detail-toolbar">
+                    <button type="button" className="back-button" onClick={onBack}>
+                        ← All works
+                    </button>
+                    <span>{String(position).padStart(2, '0')} / {String(works.length).padStart(2, '0')}</span>
+                </div>
+            </div>
+            <article className="underwater-article">
+                <p className="detail-kicker" data-water-text>Selected work / {work.year}</p>
+                <h1 data-water-text>{work.title}</h1>
+                <div className="underwater-text" data-water-text>
+                    {work.text.map((paragraph, index) => (
+                        <p key={index}>{paragraph}</p>
+                    ))}
+                </div>
+            </article>
+        </Underwater>
+    );
+}
+
 function WorkDetail({ work, onBack }) {
     return (
         <article className="detail-view">
@@ -22,7 +52,7 @@ function WorkDetail({ work, onBack }) {
                 <button type="button" className="back-button" onClick={onBack}>
                     ← All works
                 </button>
-                <span>{String(work.id).padStart(2, '0')} / {String(works.length).padStart(2, '0')}</span>
+                <span>{String(works.findIndex((w) => w.id === work.id) + 1).padStart(2, '0')} / {String(works.length).padStart(2, '0')}</span>
             </div>
             <div className="detail-image-wrap">
                 <img src={work.image} alt={work.title} className="detail-image" />
@@ -75,6 +105,10 @@ function CollectionDetail({ collection, onBack }) {
 }
 
 export default function ProjectViewer({ selected, selectedType, onSelect }) {
+    if (selectedType === 'work' && selected?.kind === 'text') {
+        return <UnderwaterWork work={selected} onBack={() => onSelect(null, 'works')} />;
+    }
+
     if (selectedType === 'work' && selected) {
         return <WorkDetail work={selected} onBack={() => onSelect(null, 'works')} />;
     }
