@@ -91,7 +91,7 @@ export const collections = [
     number: '01',
     title: '3D Explorations',
     description:
-      'An archive of 3D explorations and animations made with Blender, Touchdesigner, C4D, Unity, After Effects, Cavalry and more.',
+        'An archive of 3D explorations and animations made with Blender, Touchdesigner, C4D, Unity, After Effects, Cavalry and more.',
     image: 'https://images.pexels.com/photos/33797648/pexels-photo-33797648.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     tags: ['3D', 'Animation', 'Blender', 'C4D', 'Touchdesigner'],
   },
@@ -100,7 +100,7 @@ export const collections = [
     number: '02',
     title: 'Typographic Works',
     description:
-      'An archive of different typographic explorations, posters, editorial projects, experiments & sketches from 2021—2023.',
+        'An archive of different typographic explorations, posters, editorial projects, experiments & sketches from 2021—2023.',
     image: 'https://images.pexels.com/photos/3964576/pexels-photo-3964576.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     tags: ['Typography', 'Poster', 'Editorial', 'Print'],
   },

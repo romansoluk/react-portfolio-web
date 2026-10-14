@@ -1,27 +1,36 @@
+import { useState } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import Works from './components/Works';
-import Collections from './components/Collections';
-import About from './components/About';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import ArchiveSidebar from './components/ArchiveSidebar';
+import ProjectViewer from './components/ProjectViewer';
 
 function App() {
-  return (
-    <div className="min-h-screen bg-[#fafafa] text-black overflow-x-hidden">
-      <Header />
-      <main>
-        <Hero />
-        <Marquee />
-        <Works />
-        <Collections />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  );
+    const [selected, setSelected] = useState(null);
+    const [selectedType, setSelectedType] = useState('works');
+
+    const handleSelect = (item, type) => {
+        setSelected(item);
+        setSelectedType(type);
+    };
+
+    return (
+        <div className="archive-app">
+            <Header />
+            <div className="archive-layout">
+                <ArchiveSidebar
+                    selectedId={selected?.id}
+                    selectedType={selectedType}
+                    onSelect={handleSelect}
+                />
+                <main className="project-panel">
+                    <ProjectViewer
+                        selected={selected}
+                        selectedType={selectedType}
+                        onSelect={handleSelect}
+                    />
+                </main>
+            </div>
+        </div>
+    );
 }
 
 export default App;
